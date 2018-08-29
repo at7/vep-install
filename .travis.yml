@@ -14,7 +14,7 @@ before_install:
   - git clone --branch release/93 --depth 1 https://github.com/Ensembl/ensembl-variation.git
 
 install:
-  - cd $VEP_PATH
+  - cd $HOME/vep
   - curl -O ftp://ftp.ensembl.org/pub/current_variation/VEP/saccharomyces_cerevisiae_vep_93_R64-1-1.tar.gz
   - tar xzf saccharomyces_cerevisiae_vep_93_R64-1-1.tar.gz
   - git clone --branch vep_install_93 https://github.com/at7/ensembl-vep.git
