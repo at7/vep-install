@@ -8,9 +8,13 @@ env:
 before_install:
   - sudo apt-get install -y curl rsync tar make perl perl-base build-essential libncurses-dev libexpat1-dev libssl-dev libmysqlclient-dev libxml2-dev
   - cpanm --notest JSON JSON::Parse XML::Parser XML::Simple LWP LWP::Simple LWP::Protocol::https Archive::Extract Archive::Tar Archive::Zip CGI DBI Time::HiRes DBD::mysql Bio::Perl HTTP::Tiny
+  - git clone --branch release/93 --depth 1 https://github.com/Ensembl/ensembl.git
+  - git clone --branch release/93 --depth 1 https://github.com/Ensembl/ensembl-io.git
+  - git clone --branch release/93 --depth 1 https://github.com/Ensembl/ensembl-funcgen.git
+  - git clone --branch release/93 --depth 1 https://github.com/Ensembl/ensembl-variation.git
 
 install:
+  - cd $VEP_PATH
+  - curl -O ftp://ftp.ensembl.org/pub/current_variation/VEP/saccharomyces_cerevisiae_vep_93_R64-1-1.tar.gz
+  - tar xzf saccharomyces_cerevisiae_vep_93_R64-1-1.tar.gz
   - git clone --branch vep_install_93 https://github.com/at7/ensembl-vep.git
-  - cd ensembl-vep
-  - travis_wait 120 sleep infinity &
-    perl INSTALL.pl --AUTO acf --SPECIES saccharomyces_cerevisiae --ASSEMBLY R64-1-1 --CACHEDIR $VEP_DATA
