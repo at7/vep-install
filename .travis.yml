@@ -1,16 +1,16 @@
 language: perl
 perl:
-  - "5.22"
+  - "5.26"
 
 env:
-  - VEP_PATH=$HOME/vep VEP_DATA=$HOME/.vep VER=93 PERL5LIB=$VEP_PATH:$PERL5LIB PATH=$VEP_PATH/htslib:$PATH
+  - VEP_PATH=$HOME/vep VEP_DATA=$HOME/.vep PERL5LIB=$VEP_PATH:$PERL5LIB PATH=$VEP_PATH/htslib:$PATH
 
 before_install:
   - sudo apt-get install -y curl rsync tar make perl perl-base build-essential libncurses-dev libexpat1-dev libssl-dev libmysqlclient-dev libxml2-dev
   - cpanm --notest JSON JSON::Parse XML::Parser XML::Simple LWP LWP::Simple LWP::Protocol::https Archive::Extract Archive::Tar Archive::Zip CGI DBI Time::HiRes DBD::mysql Bio::Perl
 
 install:
-  - git clone https://github.com/Ensembl/ensembl-vep.git
+  - git clone --branch release/93 https://github.com/Ensembl/ensembl-vep.git
   - cd ensembl-vep
   - travis_wait 120 sleep infinity &
     perl INSTALL.pl --AUTO acf --SPECIES saccharomyces_cerevisiae --ASSEMBLY R64-1-1 --CACHEDIR $VEP_DATA
